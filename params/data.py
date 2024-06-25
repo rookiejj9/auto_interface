@@ -1,0 +1,167 @@
+import requests
+import json
+import random
+import string
+import mysql.connector
+
+
+class Config:
+    """
+    测试共享参数,及公共方法
+    """
+    def __init__(self):
+        """
+        初始化共享数据,这个方法可有可无，纯粹为了提醒自己创建类还可以自定义类的特性参数
+        :return: 共享域名
+        """
+        self.PC_url = "https://new.pc.api.922proxy.com"
+        self.res_url1 = "https://newres.922proxy.com"
+        self.basic_header = {
+            'Host': 'new.pc.api.922proxy.com',
+            'session-id': '',
+            'auth-name': 'socks5',
+            'platform': 'pc',
+            'oem': '922',
+            'language': 'Chinese',
+            'time-zone': 'China Standard Time',
+            'channel': 'normal',
+            'uid': '0',
+            'sign': '410b7aa73763e08dbebd2e31c7571cca',
+            'lang': 'zh-tw',
+            'union-id': 'a7831f479037296cd1b579c631b9f9bc',
+            'version': '',
+            'timestamp': '1703748598',
+            'username': '',
+            'MIME-Version': '1.0',
+            'Content-Length': '266',
+            'Connection': 'Keep-Alive',
+            'Accept-Encoding': 'gzip, deflate',
+            'Accept-Language': 'zh-CN,en,*',
+            'User-Agent': 'Mozilla/5.0',
+        }
+        self.res_header = {
+            'Host': 'newres.922proxy.com',
+            'session-id': '',
+            'auth-name': 'socks5',
+            'platform': 'pc',
+            'oem': '922',
+            'language': 'Chinese',
+            'time-zone': 'China Standard Time',
+            'channel': 'normal',
+            'uid': '67600',
+            'sign': '410b7aa73763e08dbebd2e31c7571cca',
+            'lang': 'zh-tw',
+            'union-id': 'a7831f479037296cd1b579c631b9f9bc',
+            'version': '152',
+            'timestamp': '1703748598',
+            'username': '37151829',
+            'MIME-Version': '1.0',
+            'Content-Length': '266',
+            'Connection': 'Keep-Alive',
+            'Accept-Encoding': 'gzip, deflate',
+            'Accept-Language': 'zh-CN,en,*',
+            'User-Agent': 'Mozilla/5.0',
+        }
+
+
+    def test_version(self):
+        """
+        获取测试版本号
+        :return:
+        """
+        version = '152'
+        header = self.basic_header
+        header['version'] = version
+
+        return header, version
+
+
+    def email_random(self):
+        """
+        生成随机邮箱
+        :return:一个随机生成的邮箱名email
+        """
+        random_number = [random.randint(0, 10) for _ in range(5)]
+        number = map(str, random_number)
+        str_number = ''.join(number)
+
+        random_abc = [random.choice(string.ascii_lowercase) for _ in range(5)]
+        str_abc = ''.join(random_abc)
+        email = str_number + str_abc + '@qq.com'
+        return email
+
+    def interface_action(self, resp):
+        """
+        接口处理
+        :return:接口成功&失败的响应
+        """
+        statue_code = resp.status_code
+        if statue_code // 100 == 2:
+            respose_body = resp.json()
+            print(f"\n请求成功")
+            return respose_body
+        else:
+            print("\n请求失败")
+            return resp.text
+
+    def check_url(self, link):
+        """
+        请求连接处理方法
+        :param link: 传入要测试的链接
+        :return:请求状态code
+        """
+        try:
+            response = requests.get(link)
+            code = response.status_code
+            # 检查HTTP状态码，200表示成功
+            if response.status_code == 200:
+                print(f"\n可以访问链接 {link}。")
+                return code
+            else:
+                print(f"\n无法访问链接 {link}。\n状态码: {response.status_code}")
+                return code
+        except requests.ConnectionError:
+            print(f"\n无法连接到链接 {link}。")
+            return code
+
+    def check_json_url(self, link):
+        """
+        json文件处理方法
+        :param link: json下载链接
+        :return: 解析
+        """
+        try:
+            response = requests.get(link)
+            # 检查HTTP状态码，200表示成功
+            code = response.status_code
+            if response.status_code == 200:
+                try:
+                    # 尝试解析JSON
+                    json_data = response.json()
+                    print(f"URL {link} 指向一个有效的 JSON 文件。")
+                    return code
+                except json.JSONDecodeError:
+                    print(f"URL {link} 不包含有效的 JSON。")
+                    jsonerror = "json解析失败！"
+                    return jsonerror
+            else:
+                print(f"无法访问链接 {link}。状态码: {response.status_code}")
+        except requests.ConnectionError:
+            print(f"无法连接到链接 {link}。")
+            return response.status_code
+
+    def connect_mysql(self):
+        """
+        链接数据库方法，返回可操作的游标对象
+        :return:可操作的游标对象cursor
+        """
+
+        connection = mysql.connector.connect(
+            host="sg-cdb-hbdnufk9.sql.tencentcdb.com",
+            port="54193",
+            user="gd_ceshi_922",
+            password="Aq36Dyb7kxUu8S",
+            database="master922",
+        )
+
+        return connection
