@@ -100,6 +100,4 @@ def MdDecode(strings, key):
     return fanally_str
 
 
-# print(MdEncode('37151829', "a8b1c1J9Q2K2"))
-# print(MdEncode('bSYPcSlmXAB5SAMAfXgHQQl/V0F/eF8BWy13VURSeS9AH30kAA0=', "a8b1c1J9Q2K2"))
-# print(MdDecode('L0xQHnY1dQYrWw0NAXN/Tm4HYFdZS1JlAFF8LUs1ARtdOUAgZlI=', 'a8b1c1J9Q2K2'))
+# print(MdEncode('', ""))
