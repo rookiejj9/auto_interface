@@ -14,47 +14,47 @@ class Config:
         初始化共享数据,这个方法可有可无，纯粹为了提醒自己创建类还可以自定义类的特性参数
         :return: 共享域名
         """
-        self.PC_url = "https://new.pc.api.922proxy.com"
-        self.res_url1 = "https://newres.922proxy.com"
+        self.PC_url = ""
+        self.res_url1 = ""
         self.basic_header = {
-            'Host': 'new.pc.api.922proxy.com',
+            'Host': '',
             'session-id': '',
-            'auth-name': 'socks5',
-            'platform': 'pc',
-            'oem': '922',
-            'language': 'Chinese',
-            'time-zone': 'China Standard Time',
-            'channel': 'normal',
+            'auth-name': '',
+            'platform': '',
+            'oem': '',
+            'language': '',
+            'time-zone': '  ',
+            'channel': '',
             'uid': '0',
-            'sign': '410b7aa73763e08dbebd2e31c7571cca',
+            'sign': '',
             'lang': 'zh-tw',
-            'union-id': 'a7831f479037296cd1b579c631b9f9bc',
+            'union-id': '',
             'version': '',
-            'timestamp': '1703748598',
+            'timestamp': '',
             'username': '',
-            'MIME-Version': '1.0',
-            'Content-Length': '266',
-            'Connection': 'Keep-Alive',
-            'Accept-Encoding': 'gzip, deflate',
-            'Accept-Language': 'zh-CN,en,*',
-            'User-Agent': 'Mozilla/5.0',
+            'MIME-Version': '',
+            'Content-Length': '',
+            'Connection': '',
+            'Accept-Encoding': '',
+            'Accept-Language': '',
+            'User-Agent': '',
         }
         self.res_header = {
-            'Host': 'newres.922proxy.com',
+            'Host': '',
             'session-id': '',
-            'auth-name': 'socks5',
-            'platform': 'pc',
-            'oem': '922',
-            'language': 'Chinese',
-            'time-zone': 'China Standard Time',
-            'channel': 'normal',
-            'uid': '67600',
-            'sign': '410b7aa73763e08dbebd2e31c7571cca',
+            'auth-name': '',
+            'platform': '',
+            'oem': '',
+            'language': '',
+            'time-zone': '',
+            'channel': '',
+            'uid': '',
+            'sign': '',
             'lang': 'zh-tw',
-            'union-id': 'a7831f479037296cd1b579c631b9f9bc',
-            'version': '152',
-            'timestamp': '1703748598',
-            'username': '37151829',
+            'union-id': '',
+            'version': '',
+            'timestamp': '',
+            'username': '',
             'MIME-Version': '1.0',
             'Content-Length': '266',
             'Connection': 'Keep-Alive',
@@ -69,7 +69,7 @@ class Config:
         获取测试版本号
         :return:
         """
-        version = '152'
+        version = ''
         header = self.basic_header
         header['version'] = version
 
@@ -157,11 +157,11 @@ class Config:
         """
 
         connection = mysql.connector.connect(
-            host="sg-cdb-hbdnufk9.sql.tencentcdb.com",
-            port="54193",
-            user="gd_ceshi_922",
-            password="Aq36Dyb7kxUu8S",
-            database="master922",
+            host="",
+            port="",
+            user="",
+            password="",
+            database="",
         )
 
         return connection
